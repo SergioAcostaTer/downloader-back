@@ -8,6 +8,16 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 
+//self pinging
+
+const cron = require("node-cron");
+
+cron.schedule("*/10 * * * *", () => {
+  fetch("https://downloader-back.onrender.com/").then(() => {
+    console.log("pinged");
+  });
+});
+
 const videoinfo = require("./routes/videoinfo");
 const downloadvideo = require("./routes/downloadvideo");
 
